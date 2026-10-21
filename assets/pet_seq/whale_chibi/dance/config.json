@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "dance",
+  "label": "跳舞",
+  "description": "跳舞循环：身体左右摆动胯部，双臂随节奏上下律动，鲸鱼尾巴左右摇摆；节奏轻快；首尾回到中间站姿。",
+  "fps": 12,
+  "loop": true,
+  "note": "左右摆胯、手臂律动、尾巴随节奏摆动；首尾姿态接近。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "shy",
+  "label": "害羞",
+  "description": "害羞：双手抬起捂住脸颊，身体轻轻扭动，鲸鱼耳鳍微微下垂，然后放下手；首尾均为正面站姿。",
+  "fps": 12,
+  "loop": false,
+  "note": "双手捂脸、身体轻扭、耳鳍下垂。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

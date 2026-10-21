@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "think",
+  "label": "思考",
+  "description": "思考循环：右手抬起托住下巴，头微微歪向一侧，眼睛看向斜上方，轻轻点头一次后放下手；首尾均为正面站姿。",
+  "fps": 12,
+  "loop": true,
+  "note": "右手托下巴、视线偏移、轻微点头。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "sleepy",
+  "label": "打瞌睡",
+  "description": "打瞌睡循环：连续点头打瞌睡，右手抬起揉眼睛，身体轻轻左右晃动；节奏慢；首尾均为正面站姿。",
+  "fps": 12,
+  "loop": true,
+  "note": "点头打盹、揉眼、身体轻晃；首尾姿态接近。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

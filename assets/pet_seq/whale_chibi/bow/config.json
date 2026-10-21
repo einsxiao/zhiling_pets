@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "bow",
+  "label": "鞠躬",
+  "description": "鞠躬：双手在身前交叠，上身前倾约 30 度鞠躬，保持片刻后慢慢起身回到站姿；节奏缓慢；首尾均为正面站姿。",
+  "fps": 12,
+  "loop": false,
+  "note": "双手交叠于身前、上身前倾鞠躬后起身。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

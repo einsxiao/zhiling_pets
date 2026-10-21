@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "surprised",
+  "label": "惊讶",
+  "description": "惊讶：身体向后仰，双手迅速抬到胸前，眼睛睁大、嘴巴张开，鲸鱼尾巴向上翘起，然后回到站姿；首尾均为正面站姿。",
+  "fps": 12,
+  "loop": false,
+  "note": "身体后仰、双手抬起、眼睛睁大、嘴巴张开。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

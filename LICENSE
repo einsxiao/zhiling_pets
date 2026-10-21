@@ -1,0 +1,28 @@
+# 知令 2D 形象资产库 — 双许可（Dual License）
+
+本仓库按内容类型适用两种许可：
+
+## 代码 / 脚本 / 文档 → MIT License
+
+以下内容适用 [MIT License](LICENSE-MIT)（版权：ZHILING contributors）：
+
+- `tools/` 下的工具脚本（含 `tools/pack_2d_frames.py`）；
+- `seq_asset_tool/` 下的代码（`*.js` / `*.mjs` / `*.html` / `*.css` / `*.py` / `*.bat` / `*.cmd` / `*.sh`）与 `requirements.txt`；
+- `docs/`、根 `README.md`、`pet_seq/README.md`、`seq_asset_tool/README.md`、`seq_asset_tool/seq_pipeline/README.md` 等文档；
+- `pet_seq/manifest.json` 等清单文件。
+
+## 美术素材 → Creative Commons 署名-非商业性使用 4.0（CC BY-NC 4.0）
+
+以下内容适用 [CC BY-NC 4.0](LICENSE-CC-BY-NC-4.0)（署名：ZHILING contributors；可追溯至原始出处时请一并署名原始来源）：
+
+- `pet_seq/whale_chibi/` 下的帧图片（`*.webp` / `*.png`，含 `thumb.png`）与 `config.json` 之外的动作目录帧素材；
+- `examples/whale_chibi_demo.zip` 及其中的帧、缩略图；
+- `assets/whale_gril/` 下的全部图片素材（`full-res/`、`featured/`、`share-1600/`、`chibi_seq/` 帧等，其中随附的脚本/工具代码仍按 MIT 处理）；
+- 上述目录中的 `manifest.json`、`meta/actions.json` 等**元数据文件**视为素材的一部分，随素材按 CC BY-NC 4.0 处理。
+
+> 注意：CC BY-NC 4.0 允许分享与再创作，但**非商业性使用**；商用需求请联系版权方另行授权。
+
+## 使用示例
+
+- 把 `examples/whale_chibi_demo.zip` 用于**个人非商业**用途（含导入知令桌宠自用）并分享：保留署名（ZHILING contributors 与原始出处）并注明 CC BY-NC 4.0；
+- 在你的项目里复用 `tools/pack_2d_frames.py` 或文档：保留 MIT 版权声明即可。

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "wave",
+  "label": "挥手",
+  "description": "挥手：右手从身侧抬到肩高，手掌张开左右挥动两次后放回身侧；左手自然下垂，双脚不动；首尾均为正面站姿，保持微笑。",
+  "fps": 12,
+  "loop": false,
+  "note": "右手抬起至肩高，左右挥动两次后回落；播放一次后回 idle。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

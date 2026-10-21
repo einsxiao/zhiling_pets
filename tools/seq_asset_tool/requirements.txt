@@ -1,0 +1,6 @@
+# 绿幕视频 → 序列帧流水线（seq_pipeline）的运行依赖
+# 安装：python -m pip install -r requirements.txt
+# 工作台「安装依赖（.venv）」会自动创建 .venv 并安装到本目录，不影响系统 Python。
+opencv-python-headless>=4.8
+numpy>=1.24
+Pillow>=10.0

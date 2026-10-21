@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-21T08:39:04.603Z",
+  "library": {
+    "name": "2D 形象资产库",
+    "frameFormat": "webp",
+    "canvas": [
+      768,
+      1024
+    ],
+    "naming": "frame_%03d.webp",
+    "note": "规范资产只在本目录维护；源码目录中的同名帧是应用副本，可随时重建。动作级元数据与逐帧时长以动作目录的 config.json 为准。"
+  },
+  "avatars": [
+    {
+      "id": "whale_chibi",
+      "name": "Q 版鲸鱼娘",
+      "role": "汐尾",
+      "canvas": [
+        768,
+        1024
+      ],
+      "defaultFps": 12,
+      "thumbnail": "idle/frame_000.webp",
+      "origin": "../whale_gril/chibi_seq/frames",
+      "sourceNote": "以 C17.png 为唯一角色基准的独立序列帧方案，不参与现有 PixiJS 骨骼图集。",
+      "base": {
+        "frame": "base/frame_000.webp",
+        "artwork": "base/artwork.png",
+        "note": "所有动作共同遵守的零姿态：首帧与末帧都回到 base/frame_000.webp；base/artwork.png 是 1024×1024 原画，仅作设定参考。"
+      },
+      "actions": [
+        {
+          "id": "idle",
+          "label": "待机",
+          "description": "待机循环：身体随呼吸轻微起伏，只眨一次眼，侧发与鲸鱼尾巴轻摆；幅度小、节奏慢；双臂自然下垂，首尾均为正面站姿。",
+          "loop": true,
+          "fps": 12,
+          "runtime": true,
+          "note": "呼吸起伏、只眨一次眼、尾巴与侧发轻微摆动；去掉接缝重复帧，首尾运动连续，可无缝循环。"
+        },
+        {
+          "id": "wave",
+          "label": "挥手",
+          "description": "挥手：右手从身侧抬到肩高，手掌张开左右挥动两次后放回身侧；左手自然下垂，双脚不动；首尾均为正面站姿，保持微笑。",
+          "loop": false,
+          "fps": 12,
+          "runtime": true,
+          "note": "右手抬起至肩高，左右挥动两次后回落；播放一次后回 idle。"
+        },
+        {
+          "id": "happy",
+          "label": "开心",
+          "description": "开心：双手同时向上举起，原地轻轻跳起一次后落地，露出笑容；鲸鱼尾巴随身体上扬；首尾均为正面站姿。",
+          "loop": false,
+          "fps": 12,
+          "runtime": false,
+          "note": "双手上举、原地轻跳一次、落地微笑。尚未生成帧，可在工作台选中后插入帧补全。"
+        },
+        {
+          "id": "angry",
+          "label": "生气",
+          "description": "生气：鼓起脸颊、眉头下压，右脚原地跺脚一次，鲸鱼尾巴用力甩动一下；双手握拳放在身侧；首尾均为正面站姿。",
+          "loop": false,
+          "fps": 12,
+          "runtime": false,
+          "note": "鼓脸、眉头下压、跺脚一次、尾巴甩动。尚未生成帧，可在工作台选中后插入帧补全。"
+        },
+        {
+          "id": "sad",
+          "label": "难过",
+          "description": "难过：低下头、肩膀下沉，双手自然垂在身前，鲸鱼耳鳍微微下垂，身体轻微前倾；节奏缓慢；首尾均为正面站姿。",
+          "loop": false,
+          "fps": 12,
+          "runtime": false,
+          "note": "低头、肩膀下沉、双手自然垂下。"
+        },
+        {
+          "id": "sleepy",
+          "label": "打瞌睡",
+          "description": "打瞌睡循环：连续点头打瞌睡，右手抬起揉眼睛，身体轻轻左右晃动；节奏慢；首尾均为正面站姿。",
+          "loop": true,
+          "fps": 12,
+          "runtime": false,
+          "note": "点头打盹、揉眼、身体轻晃；首尾姿态接近。"
+        },
+        {
+          "id": "think",
+          "label": "思考",
+          "description": "思考循环：右手抬起托住下巴，头微微歪向一侧，眼睛看向斜上方，轻轻点头一次后放下手；首尾均为正面站姿。",
+          "loop": true,
+          "fps": 12,
+          "runtime": false,
+          "note": "右手托下巴、视线偏移、轻微点头。"
+        },
+        {
+          "id": "surprised",
+          "label": "惊讶",
+          "description": "惊讶：身体向后仰，双手迅速抬到胸前，眼睛睁大、嘴巴张开，鲸鱼尾巴向上翘起，然后回到站姿；首尾均为正面站姿。",
+          "loop": false,
+          "fps": 12,
+          "runtime": false,
+          "note": "身体后仰、双手抬起、眼睛睁大、嘴巴张开。"
+        },
+        {
+          "id": "bow",
+          "label": "鞠躬",
+          "description": "鞠躬：双手在身前交叠，上身前倾约 30 度鞠躬，保持片刻后慢慢起身回到站姿；节奏缓慢；首尾均为正面站姿。",
+          "loop": false,
+          "fps": 12,
+          "runtime": false,
+          "note": "双手交叠于身前、上身前倾鞠躬后起身。"
+        },
+        {
+          "id": "shy",
+          "label": "害羞",
+          "description": "害羞：双手抬起捂住脸颊，身体轻轻扭动，鲸鱼耳鳍微微下垂，然后放下手；首尾均为正面站姿。",
+          "loop": false,
+          "fps": 12,
+          "runtime": false,
+          "note": "双手捂脸、身体轻扭、耳鳍下垂。"
+        },
+        {
+          "id": "clap",
+          "label": "鼓掌",
+          "description": "鼓掌：双手抬到胸前，连续拍手三次，脸上露出开心的笑容；节奏轻快；首尾均为正面站姿。",
+          "loop": false,
+          "fps": 12,
+          "runtime": false,
+          "note": "双手抬至胸前连续拍手三次。"
+        },
+        {
+          "id": "dance",
+          "label": "跳舞",
+          "description": "跳舞循环：身体左右摆动胯部，双臂随节奏上下律动，鲸鱼尾巴左右摇摆；节奏轻快；首尾回到中间站姿。",
+          "loop": true,
+          "fps": 12,
+          "runtime": false,
+          "note": "左右摆胯、手臂律动、尾巴随节奏摆动；首尾姿态接近。"
+        }
+      ]
+    }
+  ]
+}

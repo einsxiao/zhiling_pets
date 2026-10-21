@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "clap",
+  "label": "鼓掌",
+  "description": "鼓掌：双手抬到胸前，连续拍手三次，脸上露出开心的笑容；节奏轻快；首尾均为正面站姿。",
+  "fps": 12,
+  "loop": false,
+  "note": "双手抬至胸前连续拍手三次。",
+  "baseFps": 12,
+  "frameMultipliers": {},
+  "updatedAt": "2026-10-21T07:43:00.000Z"
+}

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# 历史素材工作区（第三方上游素材 + 本地派生工作区，不随本仓库发布）
+assets/whale_gril/
+
+# 资产工具缓存与备份（由工具维护，不入库）
+.trash/
+.staging/
+pip/
+pipeline.env.json
+
+# 日志
+*.log
+
+# 系统垃圾文件
+.DS_Store
+Thumbs.db
+thumbs.db
+
+# 临时文件
+*.tmp
+.tmp-*/
+.tmp_*
+.tmp_seq_fixture*

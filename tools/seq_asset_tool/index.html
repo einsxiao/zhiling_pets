@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>2D 序列帧资产工作台</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div id="boot" class="boot">
+        <div class="boot-card">
+            <div class="boot-spinner" aria-hidden="true"></div>
+            <h1>正在连接资产库…</h1>
+            <p>加载 <code>assets/pet_seq/manifest.json</code> 与帧索引</p>
+        </div>
+    </div>
+
+    <div id="app" class="app" hidden>
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-mark">SEQ</span>
+                <div class="brand-text">
+                    <strong>2D 序列帧资产工作台</strong>
+                    <span>预览 · 编辑 · 指定位置插帧 · 绿幕生成</span>
+                </div>
+            </div>
+            <div class="path-pills">
+                <button class="path-pill" id="path-library" data-tip="打开资产库目录">
+                    <span class="path-key">库</span>
+                    <span class="path-value" id="path-library-value">…</span>
+                </button>
+            </div>
+            <div class="topbar-actions">
+                <button class="btn btn-ghost" id="btn-refresh" data-tip="重新扫描资产库（Ctrl+R）">刷新</button>
+                <button class="btn btn-ghost" id="btn-theme" data-tip="切换深色 / 浅色">◐</button>
+            </div>
+        </header>
+
+        <aside class="sidebar" aria-label="资产导航">
+            <div class="sidebar-head">
+                <div class="field-label">形象</div>
+                <select id="avatar-select" class="select"></select>
+                <div class="search-wrap">
+                    <input id="action-search" class="input" type="search" placeholder="筛选动作 / 状态…" autocomplete="off">
+                </div>
+            </div>
+            <div id="action-list" class="action-list"></div>
+            <div class="sidebar-foot">
+                <button class="btn btn-secondary btn-block" id="btn-new-action">+ 新建动作</button>
+            </div>
+        </aside>
+
+        <main class="workspace" aria-label="预览与帧序列">
+            <section class="stage-panel">
+                <div class="stage-toolbar">
+                    <div class="stage-title">
+                        <span class="stage-action" id="stage-action-name">—</span>
+                        <span class="badge" id="stage-runtime-badge">—</span>
+                        <span class="stage-sub" id="stage-sub">—</span>
+                    </div>
+                    <div class="stage-tools">
+                        <label class="mini-field">
+                            <span>背景</span>
+                            <select id="stage-bg" class="select select-sm">
+                                <option value="checker">棋盘</option>
+                                <option value="dark">深色</option>
+                                <option value="light">浅色</option>
+                                <option value="green">绿幕</option>
+                            </select>
+                        </label>
+                        <label class="mini-field">
+                            <span>缩放</span>
+                            <select id="stage-zoom" class="select select-sm">
+                                <option value="fit">适应</option>
+                                <option value="100">100%</option>
+                                <option value="200">200%</option>
+                            </select>
+                        </label>
+                        <label class="switch-field" data-tip="显示画布边界与脚底参考线">
+                            <input type="checkbox" id="stage-guides-toggle" checked>
+                            <span>参考线</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="stage-viewport" id="stage-viewport">
+                    <div class="stage-canvas" id="stage-canvas" data-bg="checker" data-zoom="fit">
+                        <div class="stage-guides" id="stage-guides" aria-hidden="true">
+                            <span class="guide-boundary"></span>
+                            <span class="guide-foot"></span>
+                            <span class="guide-center"></span>
+                        </div>
+                        <img id="stage-img" class="stage-img" alt="" draggable="false" hidden>
+                        <div id="stage-empty" class="stage-empty">
+                            <strong>这个动作还没有帧</strong>
+                            <span>把图片拖到这里，或点击下方「插入帧」</span>
+                        </div>
+                        <div class="stage-overlay">
+                            <span id="stage-frame-index">—</span>
+                            <span id="stage-frame-size">—</span>
+                        </div>
+                        <div class="stage-drop-hint" id="stage-drop-hint">松开以插入到当前帧之前</div>
+                    </div>
+                </div>
+                <div class="playback-bar">
+                    <div class="transport">
+                        <button class="icon-btn" id="btn-first" data-tip="第一帧（Home）">⏮</button>
+                        <button class="icon-btn" id="btn-prev" data-tip="上一帧（←；首帧继续到末帧）">◀</button>
+                        <button class="icon-btn icon-btn-main" id="btn-play" data-tip="播放 / 暂停（空格）">▶</button>
+                        <button class="icon-btn" id="btn-next" data-tip="下一帧（→；末帧继续到首帧）">▶</button>
+                        <button class="icon-btn" id="btn-last" data-tip="最后一帧（End）">⏭</button>
+                    </div>
+                    <input type="range" id="frame-range" class="frame-range" min="0" max="0" value="0" step="1">
+                    <div class="playback-meta">
+                        <span id="frame-counter">0 / 0</span>
+                        <span class="sep">·</span>
+                        <span id="playback-fps">12 fps</span>
+                        <span class="sep">·</span>
+                        <span id="playback-loop">循环</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="filmstrip-panel">
+                <div class="filmstrip-head">
+                    <div>
+                        <span class="section-title">帧序列</span>
+                        <span class="muted" id="filmstrip-summary">—</span>
+                    </div>
+                    <div class="filmstrip-actions">
+                        <label class="mini-field">
+                            <span>插入适配</span>
+                            <select id="fit-mode" class="select select-sm">
+                                <option value="contain">完整显示</option>
+                                <option value="cover">填满裁切</option>
+                                <option value="stretch">拉伸填满</option>
+                                <option value="original">原始尺寸</option>
+                            </select>
+                        </label>
+                        <label class="mini-field">
+                            <span>WebP 质量</span>
+                            <input id="webp-quality" class="input input-sm" type="number" min="0.6" max="1" step="0.01" value="0.92">
+                        </label>
+                        <button class="btn btn-ghost" id="btn-import-video-strip" data-tip="绿幕视频 → 新动作">导入视频…</button>
+                        <button class="btn btn-primary" id="btn-insert">插入帧…</button>
+                    </div>
+                </div>
+                <div class="filmstrip" id="filmstrip" aria-label="帧序列"></div>
+            </section>
+        </main>
+
+        <aside class="inspector" aria-label="属性与编辑">
+            <div class="tabs" role="tablist">
+                <button class="tab" role="tab" data-tab="action" aria-selected="true">动作</button>
+                <button class="tab" role="tab" data-tab="frame">帧</button>
+            </div>
+
+            <section class="tab-panel" data-panel="action">
+                <div class="summary-grid">
+                    <div><span class="muted">帧数</span><strong id="sum-frames">—</strong></div>
+                    <div><span class="muted">总体积</span><strong id="sum-size">—</strong></div>
+                    <div><span class="muted">平均帧</span><strong id="sum-avg">—</strong></div>
+                    <div><span class="muted">画布</span><strong id="sum-canvas">—</strong></div>
+                    <div><span class="muted">总时长</span><strong id="sum-duration">—</strong></div>
+                </div>
+
+                <div class="section-title">动作设置</div>
+                <label class="field">
+                    <span class="field-label">显示名</span>
+                    <input id="meta-label" class="input" type="text" maxlength="40" autocomplete="off">
+                </label>
+                <div class="field-row">
+                    <label class="field">
+                        <span class="field-label">帧率</span>
+                        <input id="meta-fps" class="input" type="number" min="1" max="60" step="1">
+                    </label>
+                    <label class="switch-field switch-field-box">
+                        <input type="checkbox" id="meta-loop">
+                        <span>循环播放</span>
+                    </label>
+                </div>
+                <label class="field">
+                    <span class="field-label">动作描述（供大模型调用）</span>
+                    <textarea id="meta-description" class="input textarea" rows="3" maxlength="200" placeholder="例：右手从身侧抬到肩高，手掌张开左右挥动两次后放回；首尾均为正面站姿。"></textarea>
+                </label>
+                <label class="field">
+                    <span class="field-label">制作备注</span>
+                    <textarea id="meta-note" class="input textarea" rows="3" maxlength="240"></textarea>
+                </label>
+                <p class="hint" id="meta-hint"></p>
+                <button class="btn btn-secondary btn-block" id="btn-save-meta">保存动作设置</button>
+
+                <div class="section-title">从绿幕视频生成</div>
+                <button class="btn btn-secondary btn-block" id="btn-import-video">导入绿幕视频…</button>
+                <p class="hint">解码 → 色键 → 自动选窗 → 统一画布 → WebP 写库；默认生成新动作，也可覆盖当前动作（旧帧进 <code>.trash</code>）。</p>
+
+                <div class="section-title">发布资产包</div>
+                <p class="hint">工作台只维护资产库。发布时运行 <code>python tools/pack_2d_frames.py --pack assets/pet_seq/&lt;形象 id&gt; --out &lt;包&gt;.zip</code>，再在知令「设置 → 桌面宠物 → 导入 2D 帧包…」导入。</p>
+            </section>
+
+            <section class="tab-panel" data-panel="frame" hidden>
+                <div class="frame-preview">
+                    <img id="frame-preview-img" alt="当前帧预览">
+                    <div class="frame-preview-meta">
+                        <strong id="frame-file">—</strong>
+                        <span id="frame-dim">—</span>
+                        <span id="frame-bytes">—</span>
+                        <span id="frame-hash">—</span>
+                    </div>
+                </div>
+
+                <div class="section-title">帧时长</div>
+                <div class="timing-editor">
+                    <div class="timing-readout">
+                        <span class="muted">当前帧</span>
+                        <strong id="frame-duration-readout">—</strong>
+                    </div>
+                    <div class="timing-input-row">
+                        <button class="icon-btn" id="btn-duration-minus" type="button" data-tip="减少 0.05 倍">−</button>
+                        <input id="frame-duration-input" class="input input-sm" type="number" min="0.1" max="20" step="0.05" value="1" aria-label="当前帧时长倍数">
+                        <button class="icon-btn" id="btn-duration-plus" type="button" data-tip="增加 0.05 倍">＋</button>
+                        <button class="btn btn-ghost btn-sm" id="btn-duration-reset" type="button">重置</button>
+                    </div>
+                    <p class="hint" id="timing-hint">基准 12 fps（83.3 ms/帧）；倍数为 1 表示基准时长，修改后自动保存到动作目录的 <code>config.json</code>。</p>
+                    <button class="btn btn-danger-ghost btn-block btn-sm" id="btn-timing-reset-all" type="button">全部帧重置为 1</button>
+                </div>
+
+                <div class="section-title">指定位置插入</div>
+                <div class="insert-row">
+                    <label class="field">
+                        <span class="field-label">插入到第几帧前</span>
+                        <input id="insert-index" class="input" type="number" min="1" step="1" value="1">
+                    </label>
+                    <button class="btn btn-primary" id="btn-insert-here">选择图片…</button>
+                </div>
+                <p class="hint" id="insert-hint">1 = 最前面；当前共 0 帧。</p>
+
+                <div class="section-title">当前帧操作</div>
+                <div class="button-grid">
+                    <button class="btn btn-ghost" id="btn-move-left">← 左移</button>
+                    <button class="btn btn-ghost" id="btn-move-right">右移 →</button>
+                    <button class="btn btn-ghost" id="btn-duplicate">复制一帧</button>
+                    <button class="btn btn-ghost" id="btn-replace">替换图片…</button>
+                </div>
+                <button class="btn btn-danger-ghost btn-block" id="btn-delete-frame">删除当前帧（移入 .trash）</button>
+                <p class="hint">删除不会物理销毁资产：旧帧会连同整组快照移入 <code>assets/pet_seq/.trash</code>。</p>
+            </section>
+        </aside>
+
+        <footer class="statusbar">
+            <span id="status-message" class="status-message">就绪</span>
+            <span class="status-shortcuts">空格 播放 · ←/→ 逐帧 · I 插帧 · R 替换 · Del 删除 · Ctrl+S 保存</span>
+        </footer>
+    </div>
+
+    <div id="busy" class="busy" hidden>
+        <div class="busy-card">
+            <div class="boot-spinner" aria-hidden="true"></div>
+            <strong id="busy-text">处理中…</strong>
+            <span id="busy-sub"></span>
+        </div>
+    </div>
+
+    <dialog id="modal" class="modal">
+        <form method="dialog" class="modal-card" id="modal-form">
+            <h2 id="modal-title">确认</h2>
+            <div id="modal-body" class="modal-body"></div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" value="cancel" id="modal-cancel">取消</button>
+                <button class="btn btn-primary" value="confirm" id="modal-confirm">确定</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="pipeline-modal" class="modal pipeline-modal">
+        <div class="modal-card">
+            <h2 id="pipeline-title">导入绿幕视频</h2>
+            <div id="pipeline-body" class="modal-body"></div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" type="button" id="pipeline-cancel">取消</button>
+                <button class="btn btn-primary" type="button" id="pipeline-confirm">开始生成</button>
+            </div>
+        </div>
+    </dialog>
+
+    <div id="toast-root" class="toast-root" aria-live="polite"></div>
+    <input id="file-input" type="file" accept="image/png,image/webp,image/jpeg,image/avif" multiple hidden>
+
+    <script type="module" src="/app.js"></script>
+</body>
+</html>
